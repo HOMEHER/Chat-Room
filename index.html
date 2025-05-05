@@ -44,11 +44,12 @@
             <div class="col-md-4">
                 <h2>聊天室</h2>
                 <div id="messages" class="mb-3"></div>
-                <div class="input-group">
+                <div class="input-group mb-2">
                     <input type="text" id="nameInput" class="form-control" placeholder="你的名字" style="max-width: 150px;">
                     <input type="text" id="messageInput" class="form-control" placeholder="輸入訊息...">
                     <button class="btn btn-primary" onclick="sendMessage()">發送</button>
                 </div>
+                <button class="btn btn-danger btn-sm" onclick="clearChat()">清除聊天室</button>
             </div>
         </div>
     </div>
@@ -135,6 +136,18 @@
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
         });
+
+        // 清除聊天室功能
+        function clearChat() {
+            if (confirm('確定要清除所有聊天記錄嗎？')) {
+                // 清除畫面上的訊息
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+                
+                // 清除 Gun.js 中的聊天記錄
+                chatRoom.put(null);
+            }
+        }
 
         // 按下 Enter 鍵發送訊息
         document.getElementById('messageInput').addEventListener('keypress', function(e) {
